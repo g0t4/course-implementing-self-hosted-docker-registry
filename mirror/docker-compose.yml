@@ -8,6 +8,8 @@ services:
     volumes:
       - registry:/var/lib/registry
     restart: unless-stopped
+    environment:
+      REGISTRY_PROXY_REMOTEURL: https://registry-1.docker.io
 
 volumes:
   registry:
