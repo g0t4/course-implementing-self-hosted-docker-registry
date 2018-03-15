@@ -16,3 +16,7 @@ health:
     enabled: true
     interval: 10s
     threshold: 3
+notifications:
+  endpoints:
+    - name: jenkins
+      url: http://where-ever-you-are-jenkins
