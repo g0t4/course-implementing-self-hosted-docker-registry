@@ -1,5 +1,7 @@
 version: 0.1
 log:
+  formatter: json
+  level: info
   fields:
     service: registry
 storage:
