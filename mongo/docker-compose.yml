@@ -1,0 +1,9 @@
+version: "3.5"
+
+services:
+  vetted-registry:
+    image: registry:2.6.2
+    ports: 
+      - "55000:5000"
+    volumes:
+      - ./config.yml:/etc/docker/registry/config.yml
