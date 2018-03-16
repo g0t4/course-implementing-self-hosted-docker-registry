@@ -22,3 +22,5 @@ notifications:
   endpoints:
     - name: jenkins
       url: http://jenkins-where-are-you
+    - name: requestbin
+      url: http://requestbin:8000/ys3vmmys
