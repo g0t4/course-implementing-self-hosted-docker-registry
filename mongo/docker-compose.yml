@@ -7,3 +7,7 @@ services:
       - "55000:5000"
     volumes:
       - ./config.yml:/etc/docker/registry/config.yml
+  requestbin:
+    image: weshigbee/requestbin
+    ports:
+      - "8000:8000"
