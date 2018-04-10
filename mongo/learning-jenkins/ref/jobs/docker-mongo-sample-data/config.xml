@@ -1,0 +1,59 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.17">
+  <actions/>
+  <description>build and push learning-registry docker-mongo-sample-data image</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers>
+        <org.jenkinsci.plugins.registry.notification.DockerHubTrigger plugin="dockerhub-notification@2.2.1">
+          <spec></spec>
+          <options class="vector">
+            <org.jenkinsci.plugins.registry.notification.opt.impl.TriggerForAllUsedInJob/>
+            <org.jenkinsci.plugins.registry.notification.opt.impl.TriggerOnSpecifiedImageNames>
+              <repoNames>
+                <string>vetted-registry:5000/mongo</string>
+                <string>localhost:55000/mongo</string>
+                <string>vetted-registry:5000/busybox</string>
+                <string>localhost:55000/busybox</string>
+              </repoNames>
+            </org.jenkinsci.plugins.registry.notification.opt.impl.TriggerOnSpecifiedImageNames>
+          </options>
+        </org.jenkinsci.plugins.registry.notification.DockerHubTrigger>
+      </triggers>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.45">
+    <script>
+node {
+    
+    sh &apos;env&apos;
+
+    git branch: &apos;docker-registry-jenkins&apos;, url: &apos;https://github.com/g0t4/docker-mongo-sample-datasets&apos;
+    sh &apos;docker version&apos;
+    
+    image_tag=&quot;ci-${BUILD_NUMBER}&quot;
+    repo_name=&quot;mongo-with-data&quot;
+    registry=&quot;learning-registry:5000&quot;
+    repo_full=&quot;${registry}/${repo_name}&quot;
+    image=&quot;${repo_full}:${image_tag}&quot;
+
+    // note: errors might mean you didn&apos;t push mongo to vetted-registry and/or pushed something that's not mongo 
+    // note: docker build is cached if nothing changes 
+    sh &quot;docker build -t ${image} .&quot;
+
+    // optional: show repos before push:
+    sh &quot;curl -s http://${registry}/v2/_catalog&quot;
+    sh &quot;curl -s http://${registry}/v2/${repo_name}/tags/list&quot;
+
+    sh &quot;docker push ${image}&quot;
+
+    // optional: show repos after push:
+    sh &quot;curl -s http://${registry}/v2/_catalog&quot;
+    sh &quot;curl -s http://${registry}/v2/${repo_name}/tags/list&quot;
+
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <disabled>false</disabled>
+</flow-definition>

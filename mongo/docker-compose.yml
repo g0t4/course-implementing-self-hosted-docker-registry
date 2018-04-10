@@ -1,6 +1,16 @@
 version: "3.5"
 
 services:
+  learning-registry:
+    image: registry:2.6.2
+  learning-jenkins:
+    build: ./learning-jenkins
+    volumes:
+      - learning-jenkins-home:/var/jenkins_home
+    ports:
+      - "127.0.0.1:8190:8080"
+    environment:
+      DOCKER_HOST: tcp://dind:2375
   vetted-registry:
     image: registry:2.6.2
     ports: 
@@ -11,3 +21,17 @@ services:
     image: weshigbee/requestbin
     ports:
       - "8000:8000"
+  dind:
+    image: docker:dind
+    privileged: true
+    volumes: 
+      - dind-data-root:/var/lib/docker
+    command: [
+      "--insecure-registry", "learning-registry:5000",
+      "--insecure-registry", "vetted-registry:5000",
+    ]
+
+    
+volumes:
+  learning-jenkins-home:
+  dind-data-root:    
