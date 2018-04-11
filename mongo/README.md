@@ -44,3 +44,7 @@ curl -X POST -H "Content-Type: application/json" http://localhost:8190/dockerreg
 docker-compose down --remove-orphans --volumes
 
 ```
+
+## Grand finale mongo / notification challenge
+
+- check out the `grand-finale-notification-challenge` branch
