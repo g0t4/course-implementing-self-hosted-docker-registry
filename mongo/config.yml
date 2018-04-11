@@ -21,6 +21,6 @@ health:
 notifications:
   endpoints:
     - name: jenkins
-      url: http://jenkins-where-are-you
+      url: http://learning-jenkins:8080/dockerregistry-webhook/notify
     - name: requestbin
       url: http://requestbin:8000/ys3vmmys
