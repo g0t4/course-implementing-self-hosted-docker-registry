@@ -1,0 +1,15 @@
+version: '3.6' 
+
+services:
+  registry:
+    image: registry
+    ports:
+      - "5000:5000"
+    environment:
+      REGISTRY_LOG_LEVEL: debug
+      REGISTRY_STORAGE: inmemory 
+
+# docker image pull busybox
+# docker image tag busybox localhost:5000/busybox
+# watch -n0.5 -d curl -s localhost:5000/v2/_catalog
+# docker image push localhost:5000/busybox
