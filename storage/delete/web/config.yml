@@ -5,7 +5,7 @@
 
 registry:
   # Docker registry url
-  url: 'http://localhost:5000/v2'
+  url: 'http://registry:5000/v2'
   # web registry context path
   # empty string for root context, /app to make web registry accessible on http://host/app
   context_path: ''
