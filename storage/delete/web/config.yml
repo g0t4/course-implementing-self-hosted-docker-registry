@@ -14,7 +14,7 @@ registry:
   #  base64 encoded token for basic authentication
   basic_auth: ''
   # To allow image delete, should be false
-  readonly: true
+  readonly: false 
   # Docker registry fqdn
   name: 'localhost:5000'
   # Authentication settings
