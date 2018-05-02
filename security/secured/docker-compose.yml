@@ -1,0 +1,12 @@
+version: "3.6"
+
+services:
+  secured:
+    build: ./self-signed
+    ports:
+      - 443:443
+    environment:
+      - REGISTRY_HTTP_ADDR=0.0.0.0:443
+      - REGISTRY_HTTP_TLS_CERTIFICATE=/certs/selfsigned.crt
+      - REGISTRY_HTTP_TLS_KEY=/certs/selfsigned.key
+    
