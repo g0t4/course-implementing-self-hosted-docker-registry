@@ -1,0 +1,13 @@
+version: "3.6"
+
+services:
+  basic:
+    image: registry:2
+    ports:
+      - 5002:5000
+    environment:
+      # https://docs.docker.com/registry/configuration/#silly
+      # must specify an Authorization header with a value - value doesn't matter - for testing only
+      REGISTRY_AUTH: silly
+      REGISTRY_AUTH_SILLY_REALM: silly-realm
+      REGISTRY_AUTH_SILLY_SERVICE: silly-service 
