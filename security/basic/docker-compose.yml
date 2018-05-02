@@ -1,0 +1,12 @@
+version: "3.6"
+
+services:
+  basic:
+    build: ./auth/
+    ports:
+      - 5001:5000
+    environment:
+      # https://docs.docker.com/registry/configuration/#htpasswd
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: basic-realm
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
