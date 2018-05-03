@@ -1,0 +1,8 @@
+version: "3.6"
+
+services:
+  query:
+    image: alpine
+    volumes:
+      - "./query.sh:/query.sh"
+    command: "/query.sh"
