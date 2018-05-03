@@ -5,7 +5,8 @@ apk add --no-cache curl jq > /dev/null
 
 
 # this is the repo that we're interested in:
-repo="library/mongo"
+repo="library/alpine"
+
 
 
 
@@ -30,7 +31,9 @@ echo
 
 
 
-echo "2. Getting token: "
+
+
+echo "2. Getting token with anonymous auth: "
 echo
 service="registry.docker.io"
 scope="repository:${repo}:pull"
@@ -45,11 +48,14 @@ echo
 # never do this with tokens that access sensitive data:
 echo "extra credit - plug token into https://jwt.io/"
 echo
+# more about generating tokens here https://docs.docker.com/registry/spec/auth/jwt/#getting-a-bearer-token
+
 
 
 
 
 echo "3. Trying tags API again, this time with the token!"
+# more about how this works here: https://docs.docker.com/registry/spec/auth/jwt/#using-the-signed-token
 echo
 curl -s \
   -H "Authorization: Bearer $token" \
