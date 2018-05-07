@@ -3,6 +3,7 @@ version: "3.6"
 services:
   secured:
     build: ./self-signed
+    restart: unless-stopped
     ports:
       - 443:443
     environment:
